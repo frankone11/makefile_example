@@ -1,0 +1,28 @@
+CFLAGS := -Wall -Werror -no-pie
+CC := gcc
+
+.PHONY = all clean say_hello fortune
+
+all: final
+
+final: main.o hello.o
+	@echo "Linking and producing the final application"
+	@$(CC) $(CFLAGS) -o $@ $^
+
+main.o: main.c functions.h
+	@echo "Compiling the main file"
+	@$(CC) $(CFLAGS) -c $<
+
+hello.o: hello.c functions.h
+	@echo "Compiling the hello file"
+	@$(CC) $(CFLAGS) -c $<
+
+clean:
+	@echo "Removing everything but the source files"
+	@rm *.o final
+
+say_hello:
+	@echo "Hello World"
+
+fortune:
+	@fortune
