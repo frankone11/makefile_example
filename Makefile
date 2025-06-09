@@ -1,6 +1,7 @@
 CFLAGS := -Wall -Wextra
 LINKFLAGS := -no-pie
 CC := gcc
+RM := rm -f
 target := final
 objs := main.o hello.o
 
@@ -23,7 +24,7 @@ $(target): $(objs)
 
 clean:
 	@echo "Removing everything but the source files"
-	@rm -f $(target) $(objs) $(deps)
+	@${RM} $(target) $(objs) $(deps)
 
 say_hello:
 	@echo "Hello World"
