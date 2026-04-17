@@ -1,0 +1,33 @@
+CFLAGS := -Wall -Wextra
+LINKFLAGS := -no-pie
+CC := gcc
+RM := rm -f
+TARGET := final
+OBJECTS := main.o hello.o
+
+#PHONY se utiliza para nombrar a los objetivos que no producen archivos
+.PHONY: all clean say_hello fortune
+
+all: $(TARGET)
+
+DEPS := $(patsubst %.o,%.d,$(OBJECTS))
+DEPFLAGS = -MMD -MF $(@:.o=.d)
+
+$(TARGET): $(OBJECTS)
+	@echo "Linking and producing the ${TARGET} application"
+	@$(CC) $(LINKFLAGS) -o $@ $^
+
+%.o: %.c
+	@echo "Compiling the ${<} file"
+	@$(CC) $(CFLAGS) -c $< $(DEPFLAGS)
+-include $(DEPS)
+
+clean:
+	@echo "Removing everything but the source files"
+	@$(RM) $(TARGET) $(OBJECTS) $(DEPS)
+
+say_hello:
+	@echo "Hello World"
+
+fortune:
+	@fortune
