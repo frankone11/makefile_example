@@ -5,8 +5,6 @@
  *@brief Function that prints hello world
  *
  */
- 
- #define PRUEBA
 
 void hello(void);
 
